@@ -1,7 +1,7 @@
 # 🖥️ GreenOps Monitor — Relatório de Saúde
 
 > **Status Geral:** ✅ SISTEMA SAUDÁVEL
-> **Gerado em:** 2026-03-11 16:40:09
+> **Gerado em:** 2026-03-11 17:20:56
 
 ---
 
@@ -21,26 +21,26 @@
 ### 🟢 CPU
 | Métrica | Valor |
 |---|---|
-| **Uso** | **39.2%** |
+| **Uso** | **16.3%** |
 | **Cores Físicos** | 2 |
 | **Cores Lógicos** | 4 |
-| **Frequência** | 500.0 MHz |
+| **Frequência** | 400.0 MHz |
 
 ### 🟢 RAM
 | Métrica | Valor |
 |---|---|
-| **Uso** | **54.4%** |
+| **Uso** | **54.6%** |
 | **Total** | 15.9 GB |
-| **Em Uso** | 8.65 GB |
-| **Disponível** | 7.25 GB |
+| **Em Uso** | 8.68 GB |
+| **Disponível** | 7.22 GB |
 
 ### 🟡 Disco C:
 | Métrica | Valor |
 |---|---|
 | **Uso** | **72.2%** |
 | **Total** | 446.28 GB |
-| **Usado** | 322.12 GB |
-| **Livre** | 124.16 GB |
+| **Usado** | 322.36 GB |
+| **Livre** | 123.92 GB |
 
 ---
 
