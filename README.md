@@ -2,140 +2,99 @@
 
 # 🖥️ GreenOps Monitor
 
-**Sistema de Monitoramento Local de Hardware com IA Acessível**
+**Monitoramento local de hardware com IA acessível — direto no seu terminal.**
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![MCP](https://img.shields.io/badge/MCP-Model_Context_Protocol-00B4D8?style=for-the-badge)](https://modelcontextprotocol.io)
-[![Windows](https://img.shields.io/badge/Windows-11-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://microsoft.com)
+[![Windows](https://img.shields.io/badge/Windows-10%2F11-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://microsoft.com)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-
-*Monitoramento inteligente que roda no seu hardware, sem cloud, sem custos.*
 
 </div>
 
 ---
 
-## 📋 Sobre o Projeto
+## ⚡ Instalação (uma linha)
 
-O **GreenOps Monitor** é um sistema de monitoramento de hardware projetado para rodar **100% localmente** em um notebook pessoal. Ele coleta métricas de CPU, RAM e Disco em tempo real, gera relatórios automatizados em Markdown, e expõe os dados via **Model Context Protocol (MCP)** para que agentes de IA possam analisar a saúde da máquina e sugerir ações de manutenção.
+Abra o **PowerShell** e cole:
 
-### 🎯 Por que este projeto existe?
+```powershell
+irm https://raw.githubusercontent.com/MiguelFAraujo/GreenOpsMonitor/master/install.ps1 | iex
+```
 
-- Demonstrar que **IA acessível + automação local** são viáveis sem infraestrutura cloud cara
-- Criar um pipeline completo: coleta → análise IA → automação → versionamento
-- Servir como projeto de portfólio que une **hardware, software e inteligência artificial**
+Depois, de qualquer terminal:
+
+```powershell
+greenops
+```
+
+Pronto. Dashboard com métricas de CPU, RAM e Disco na tela.
+
+```
+  ╔══════════════════════════════════════════════════════╗
+  ║        🖥️  GreenOps Monitor — Dashboard             ║
+  ╚══════════════════════════════════════════════════════╝
+
+   ✅ STATUS: SISTEMA SAUDÁVEL
+
+   CPU    ████████████░░░░░░░░░░░░░░░░░░  39.2%  (4 cores)
+   RAM    ████████████████░░░░░░░░░░░░░░  54.4%  (8.7/15.9 GB)
+   DISCO  █████████████████████░░░░░░░░░  72.2%  (322/446 GB)
+
+   [1] 🔄 Atualizar    [2] 📄 Relatório
+   [3] 📤 Push GitHub   [4] 🔌 Servidor MCP
+```
+
+---
+
+## 📋 O que é
+
+Um sistema de monitoramento de hardware que roda **100% local** no seu notebook. Sem cloud. Sem custos. Sem complicação.
+
+- 📊 **Dashboard interativo** no PowerShell com barras coloridas
+- 📄 **Relatórios em Markdown** versionáveis no Git
+- 🔌 **Servidor MCP** que expõe métricas para agentes de IA
+- 🤖 **Agente SRE** com diagnósticos e recomendações automáticas
+- ⚡ **Pipeline de automação** — coleta → análise → commit → push
 
 ---
 
 ## 🏗️ Arquitetura
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    Dell Inspiron 15                      │
-│                i5 7ª Gen · 16GB RAM · Windows            │
-│                                                         │
-│  ┌──────────────┐    ┌──────────────┐    ┌───────────┐  │
-│  │  monitor.py   │───▶│status_hard   │───▶│  Git Push  │  │
-│  │  (psutil)     │    │  ware.md     │    │  (GitHub)  │  │
-│  └──────────────┘    └──────┬───────┘    └───────────┘  │
-│                             │                           │
-│  ┌──────────────┐    ┌──────▼───────┐                   │
-│  │hardware_mcp  │◀──▶│  Agente IA   │                   │
-│  │  .py (MCP)   │    │ (analista    │                   │
-│  │              │    │   .agent)    │                   │
-│  └──────────────┘    └──────────────┘                   │
-│                                                         │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │  deploy_saude.ps1 — Pipeline de Automação         │   │
-│  │  Coleta → Análise IA → Commit → Push              │   │
-│  └──────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────┐
+│                 Seu Notebook (Windows)               │
+│                                                     │
+│  greenops.ps1 ──▶ Dashboard interativo no terminal  │
+│       │                                              │
+│  monitor.py ────▶ status_hardware.md ──▶ Git Push   │
+│       │                                              │
+│  hardware_mcp.py ◀──▶ Agente IA (analista.agent)   │
+│                                                     │
+│  deploy_saude.ps1 ── Pipeline automatizado          │
+└─────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📁 Estrutura de Arquivos
+## 📁 Estrutura
 
 ```
-GreenOps Monitor/
-├── hardware_mcp.py      # 🔌 Servidor MCP — expõe métricas para agentes de IA
-├── monitor.py           # 📊 Coletor — gera relatório markdown com psutil
-├── analista.agent       # 🤖 System Prompt — instruções do agente SRE
-├── deploy_saude.ps1     # ⚡ Automação — pipeline coleta → IA → Git
-├── status_hardware.md   # 📄 Relatório — gerado automaticamente
+GreenOpsMonitor/
+├── greenops.ps1         # ⚡ Dashboard interativo (ponto de entrada)
+├── install.ps1          # 📥 Instalador one-line
+├── hardware_mcp.py      # 🔌 Servidor MCP para agentes de IA
+├── monitor.py           # 📊 Coletor de métricas → Markdown
+├── analista.agent       # 🤖 System Prompt do agente SRE
+├── deploy_saude.ps1     # ⚙️ Pipeline de automação
 ├── requirements.txt     # 📦 Dependências Python
-├── .gitignore           # 🚫 Exclusões do Git
-└── README.md            # 📖 Este arquivo
+└── status_hardware.md   # 📄 Relatório gerado automaticamente
 ```
 
 ---
 
-## 🚀 Como Usar
+## 🔌 Integração MCP (para agentes de IA)
 
-### Pré-requisitos
-
-- Python 3.10+
-- Windows 10/11
-- Git instalado
-
-### 1. Instalar dependências
-
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Gerar relatório de saúde
-
-```bash
-python monitor.py
-```
-
-O relatório será salvo em `status_hardware.md` com métricas de CPU, RAM e Disco.
-
-### 3. Iniciar servidor MCP
-
-```bash
-python hardware_mcp.py
-```
-
-O servidor expõe a ferramenta `get_system_health` via protocolo MCP para qualquer agente de IA compatível.
-
-### 4. Pipeline completo (PowerShell)
-
-```powershell
-.\deploy_saude.ps1
-```
-
-Executa coleta de métricas automaticamente. Descomente as seções de IA e Git no script para automação completa.
-
----
-
-## 🔧 Stack Tecnológica
-
-| Componente | Tecnologia | Função |
-|---|---|---|
-| **Coleta de Dados** | `psutil` | Métricas de hardware em tempo real |
-| **Protocolo IA** | `FastMCP` | Exposição de dados via Model Context Protocol |
-| **Automação** | `PowerShell` | Pipeline de execução e deploy |
-| **Relatórios** | `Markdown` | Formato portável e versionável |
-| **Versionamento** | `Git/GitHub` | Histórico de saúde da máquina |
-
----
-
-## 📊 Exemplo de Relatório
-
-Após executar `python monitor.py`, o arquivo `status_hardware.md` conterá:
-
-- ✅ Status geral do sistema (Saudável / Atenção / Crítico)
-- 📋 Info do sistema (OS, hostname, processador)
-- 📊 Métricas detalhadas com tabelas (CPU, RAM, Disco)
-- 🚨 Alertas automáticos quando thresholds são ultrapassados
-
----
-
-## 🤖 Integração com IA via MCP
-
-O arquivo `hardware_mcp.py` cria um servidor **Model Context Protocol** que permite que qualquer agente de IA conectado consuma métricas em tempo real:
+Adicione ao config do seu cliente MCP:
 
 ```json
 {
@@ -148,7 +107,29 @@ O arquivo `hardware_mcp.py` cria um servidor **Model Context Protocol** que perm
 }
 ```
 
-O agente pode chamar a ferramenta `get_system_health()` e receber um JSON completo com CPU, RAM, Disco, alertas e status geral.
+O agente chama `get_system_health()` e recebe CPU, RAM, Disco, alertas e status em JSON.
+
+---
+
+## 🔧 Pré-requisitos
+
+- **Python 3.10+** — [python.org](https://python.org)
+- **Git** — [git-scm.com](https://git-scm.com)
+- **Windows 10/11**
+
+O instalador cuida do resto (`psutil`, alias global).
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Este é um projeto aberto.
+
+1. Fork o repositório
+2. Crie sua branch: `git checkout -b minha-feature`
+3. Commit: `git commit -m 'feat: minha feature'`
+4. Push: `git push origin minha-feature`
+5. Abra um Pull Request
 
 ---
 
@@ -156,17 +137,17 @@ O agente pode chamar a ferramenta `get_system_health()` e receber um JSON comple
 
 **Autodidata. Hardware + IA. Soluções que rodam localmente.**
 
-Sou profissional de tecnologia focado em **suporte técnico, montagem de computadores e automação prática**. Minha filosofia é simples: tecnologia boa é tecnologia que funciona no seu hardware, sem depender de cloud caro ou infraestrutura complexa.
+Profissional de tecnologia focado em suporte técnico, montagem de computadores e automação prática. Minha filosofia: tecnologia boa é tecnologia que funciona no seu hardware, sem depender de cloud caro.
 
-Acredito que **IA acessível** não é sobre ter o melhor GPU ou a subscription mais cara — é sobre entender seus dados, automatizar o que importa, e fazer mais com o que você já tem. Este projeto é a prova disso: um notebook i5 com 16GB de RAM rodando monitoramento inteligente com MCP e agentes de IA.
+IA acessível não é sobre ter o melhor GPU — é sobre entender seus dados, automatizar o que importa, e fazer mais com o que você já tem.
 
-**Áreas de atuação:**
-- 🔧 Suporte técnico e montagem de hardware
-- 🤖 Automação local com Python e PowerShell
-- 🧠 Integração de IA acessível via MCP
-- 📊 Monitoramento e diagnóstico de sistemas
+**Áreas:** Suporte técnico · Automação local (Python/PowerShell) · IA acessível via MCP · Diagnóstico de sistemas
 
 ---
+
+## 📄 Licença
+
+Este projeto é open source sob a licença [MIT](LICENSE).
 
 <div align="center">
 
